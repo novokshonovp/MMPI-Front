@@ -25,9 +25,9 @@ class Main < Sinatra::Base
 
   get '/' do
     session[:key] = new_test_key unless request.xhr?
-    service = AppServices.new(PATH_TO_QUIZ)
-    service.put_answer(params, Main.cache, session[:key]) if request.xhr?
-    @data = service.get_question(Main.cache, session[:key])
+    service = AppServices.new(PATH_TO_QUIZ, Main.cache, session[:key], :men)
+    service.put_answer(params) if request.xhr?
+    @data = service.get_question
     if request.xhr?
       content_type :json
       JSON.dump(@data)
@@ -36,15 +36,16 @@ class Main < Sinatra::Base
     end
   end
   get '/finished' do
-    service = AppServices.new(PATH_TO_QUIZ)
-    service.save_result(Main.cache, session[:key])
+    service = AppServices.new(PATH_TO_QUIZ, Main.cache, session[:key], :men)
+    service.save_result(session[:key])
     @test_link = "#{request.base_url}/result?key=#{session[:key]}"
     @key = session[:key]
     erb :finished
   end
 
   get '/result' do
-    @result = AppServices.new(PATH_TO_QUIZ).result(params[:key])
+    @result = AppServices.new(PATH_TO_QUIZ, Main.cache, session[:key], :men)
+                         .load_result(params[:key])
     @result ||= 'Нет файла с результатами для данного идентификатора.'
     erb :result
   end

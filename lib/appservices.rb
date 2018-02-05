@@ -12,8 +12,8 @@ class AppServices
 
   def initialize(path_to_quiz, cache, key, gender)
     @path_to_quiz = path_to_quiz
-    @quiz ||= Test.new(gender, @path_to_quiz)
-    cache[key] = @quiz
+    @quiz = cache[key].nil? ? Test.new(gender, @path_to_quiz) : cache[key]
+    cache[key] ||= @quiz
   end
   def get_question
     if @quiz.finished?
