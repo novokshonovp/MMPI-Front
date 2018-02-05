@@ -62,19 +62,16 @@
         el: '#root',
         data: { number: '<%= @data[:number] %>',
                 question: '<%= @data[:question] %>',
-                finisehd: false },
+                finished: false },
         methods: {
           onTruth(){
             axios.get('/?question=' + this.number + '&answer=true')
                .then(function (response) {
+                 app.number = response.data.number;
+                 app.question = response.data.question;
                  if (response.data.finished == true)
                  {
                    app.question =  "Finished!!!";
-                 }
-                 else
-                 {
-                   app.number = response.data.number;
-                   app.question =  response.data.question;
                  }
                  console.log(response);
                })
