@@ -1,0 +1,16 @@
+--- !ruby/object:Mmpi::Test
+quiz:
+  '14':
+    :ques: Номер данного пункта следует обвести кружочком
+    :answer: 'true'
+    :is_checked: true
+  '15':
+    :ques: Временами мне в голову приходят такие нехорошие мысли, что о них лучше
+      не рассказывать
+    :answer: 'true'
+    :is_checked: true
+  '16':
+    :ques: Я считаю, что жизнь ко мне беспощадна
+    :answer: 'true'
+    :is_checked: true
+gender: :men

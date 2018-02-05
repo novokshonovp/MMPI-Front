@@ -1,0 +1,50 @@
+<style>
+  .container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: auto;
+  }
+
+  .row {
+    margin:10px auto 10px;
+    width: 1000px;
+  }
+  .question {
+    padding-top: 10%;
+    line-height: 3em;
+    margin: auto;
+    text-align: center;
+    word-wrap: break-word;
+  }
+  .truth {
+    text-align: right;
+    float: left;
+    width: 50%;
+    margin-right: 30px;
+  }
+  .false {
+    width: 40%;
+    float: left;
+  }
+  .button-xlarge {
+    font-size: 125%;
+    width: 150px;
+  }
+  input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 15px;
+  }
+  input[type=submit] {
+    width: 50%;
+    font-size: 125%;
+    border-radius: 5px;
+    font-size: 125%;
+    float: left;
+   }
+</style>
