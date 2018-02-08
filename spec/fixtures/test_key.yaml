@@ -13,4 +13,4 @@ quiz:
     :ques: Я считаю, что жизнь ко мне беспощадна
     :answer: 'true'
     :is_checked: true
-gender: :men
+gender: :male

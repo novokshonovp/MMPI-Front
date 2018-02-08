@@ -5,18 +5,25 @@ require 'mmpi'
 include Mmpi
 
 def new_test_key
-  "#{Time.now.strftime("%Y_%m_%d_%H_%M")}_#{SecureRandom.urlsafe_base64}"
+  "#{Time.now.strftime('%Y_%m_%d_%H_%M')}_#{SecureRandom.urlsafe_base64}"
 end
 
 class AppServices
-  RESULTS_DIR='./results'
+  RESULTS_DIR = './results'.freeze
   attr_reader :quiz
 
   def initialize(path_to_quiz, cache, key, gender = nil)
     @path_to_quiz = path_to_quiz
-    @quiz = cache[key].nil? ? Test.new(gender, @path_to_quiz) : cache[key]
-    cache[key] ||= @quiz
+    @key = key
+    @cache = cache
+    if @cache.exist?(key)
+      @quiz = @cache.get(@key)
+    else
+      @quiz = Test.new(gender, @path_to_quiz)
+      @cache.set(@key, @quiz)
+    end
   end
+
   def get_question
     if @quiz.finished?
       { finished: true, question: '', number: '' }
@@ -28,6 +35,7 @@ class AppServices
   def put_answer(params)
     raise 'Not existed quiz!' if @quiz.nil?
     @quiz.put_answer(params[:question] => params[:answer])
+    @cache.set(@key, @quiz)
     self
   end
 

@@ -3,7 +3,9 @@ require 'json'
 require 'byebug'
 require 'sinatra/reloader'
 require_relative './lib/appservices'
+require_relative './lib/cache'
 require 'gon-sinatra'
+
 
 include ERB::Util
 
@@ -12,7 +14,6 @@ class Main < Sinatra::Base
   PATH_TO_QUIZ = './data/q_mmpi_men_ru_3.csv'
   configure do
     enable :sessions
-    set :cache, {}
   end
 
   before do
@@ -20,7 +21,6 @@ class Main < Sinatra::Base
       p "session_id: #{session['session_id']}"
       p params
       p "request.xhr?: #{request.xhr?}"
-      p Main.cache[session[:key]].inspect
     end
   end
 
@@ -31,7 +31,6 @@ class Main < Sinatra::Base
 
   get '/mmpi' do
     session[:sex] = params[:sex].to_sym if params[:sex]
-    byebug
     service = AppServices.new(PATH_TO_QUIZ, Main.cache, session[:key], session[:sex])
     service.put_answer(params) if request.xhr?
     @data = service.get_question
@@ -59,6 +58,9 @@ class Main < Sinatra::Base
     erb :result
   end
 
+  def self.cache
+    @cache ||= Cache.new
+  end
 end
 
 run Main.run!
