@@ -5,3 +5,4 @@ gem 'mmpi'
 
 gem 'sinatra-contrib'
 gem 'gon-sinatra'
+gem 'redis'
