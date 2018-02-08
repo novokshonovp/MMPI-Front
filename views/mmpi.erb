@@ -12,7 +12,7 @@
 </div>
 <script>
   function put_answer(question, answer) {
-    axios.get('/?question=' + question + '&answer='+answer)
+    axios.get('/mmpi?question=' + question + '&answer='+answer)
        .then(function (response) {
          app.number = response.data.number;
          app.question = response.data.question;

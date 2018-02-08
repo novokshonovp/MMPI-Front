@@ -3,14 +3,16 @@ require 'securerandom'
 require 'mmpi'
 
 include Mmpi
+
 def new_test_key
-  SecureRandom.urlsafe_base64
+  "#{Time.now.strftime("%Y_%m_%d_%H_%M")}_#{SecureRandom.urlsafe_base64}"
 end
+
 class AppServices
   RESULTS_DIR='./results'
   attr_reader :quiz
 
-  def initialize(path_to_quiz, cache, key, gender)
+  def initialize(path_to_quiz, cache, key, gender = nil)
     @path_to_quiz = path_to_quiz
     @quiz = cache[key].nil? ? Test.new(gender, @path_to_quiz) : cache[key]
     cache[key] ||= @quiz
@@ -36,7 +38,8 @@ class AppServices
 
   def load_result(key)
     path = path_to_result(key)
-    @result = YAML.load_file(path) if File.exist?(path)
+    @test = YAML.load_file(path) if File.exist?(path)
+    Result.new(@test.answers, @test.gender) unless @test.nil?
   end
 
   def finished?

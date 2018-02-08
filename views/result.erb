@@ -1,6 +1,74 @@
 
 <div class="container" id="root">
-  <div class="row results">
-      <%= @result.inspect %>
+  <div class="row result_charts">
+    <div class="left_scales"><canvas id="scales_lfk" class="scales_lfk" width="200" height="400"></canvas></div>
+    <div class="right_scales"><canvas id="scales_1_0" class="scales_1_0" width="600" height="400"></canvas></div>
   </div>
+
+      <% @result.scales.each do | klass, object| %>
+        <div class="row scale_x_result">
+          <%= "#{klass.to_sym} T = #{object.t_grade}" %>
+          (<%= object.concise_interpretation %>)
+      </div>
+      <% end %>
+
 </div>
+<script>
+var ctx = document.getElementById("scales_lfk");
+var scales_lfk = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ["L", "F", "K"],
+        datasets: [{
+            fill: false,
+            borderColor: 'rgba(75, 192, 192)',
+            lineTention: 0.1,
+            label: "# L F K (Т-баллы)",
+            data: [gon.scales['Scale_l'], gon.scales['Scale_f'], gon.scales['Scale_k']],
+            borderWidth: 5
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 120
+                }
+            }]
+        }
+    }
+});
+</script>
+
+<script>
+var ctx = document.getElementById("scales_1_0");
+var scales_lfk = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['1','2','3','4','5','6','7','8','9','0'],
+        datasets: [{
+            fill: false,
+            borderColor: 'rgba(0,255,0,0.3)',
+            lineTention: 0.1,
+            label: "# 1 2 3 4 5 6 7 8 9 0 (Т-баллы)",
+            data: [gon.scales['Scale_1'],gon.scales['Scale_2'],gon.scales['Scale_3'],
+                   gon.scales['Scale_4'],gon.scales['Scale_5'],gon.scales['Scale_6'],
+                   gon.scales['Scale_7'],gon.scales['Scale_8'],gon.scales['Scale_9'],
+                   gon.scales['Scale_0']],
+            borderWidth: 5
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    display: false,
+                    min: 0,
+                    max: 120
+                }
+            }]
+        }
+    }
+});
+</script>
