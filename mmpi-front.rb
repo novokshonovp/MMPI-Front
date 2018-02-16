@@ -6,12 +6,15 @@ require_relative './lib/appservices'
 require_relative './lib/cache'
 require 'gon-sinatra'
 
-
 include ERB::Util
 
 class Main < Sinatra::Base
   register Gon::Sinatra
-  PATH_TO_QUIZ = './data/q_mmpi_men_ru_3.csv'
+  PATH_TO_QUIZ = {male: './data/q_mmpi_male_ru_3.csv',
+                  female: './data/q_mmpi_female_ru.csv',
+                  boy: './data/q_mmpi_boy_ru.csv',
+                  girl: './data/q_mmpi_girl_ru.csv'}.freeze
+
   configure do
     enable :sessions
   end
@@ -31,7 +34,11 @@ class Main < Sinatra::Base
 
   get '/mmpi' do
     session[:sex] = params[:sex].to_sym if params[:sex]
-    service = AppServices.new(PATH_TO_QUIZ, Main.cache, session[:key], session[:sex])
+    begin
+      service = AppServices.new(PATH_TO_QUIZ[session[:sex]], Main.cache, session[:key], session[:sex])
+    rescue
+      return 'Отсуствует библиотека утверждений по данному запросу.'
+    end
     service.put_answer(params) if request.xhr?
     @data = service.get_question
     if request.xhr?
@@ -53,7 +60,7 @@ class Main < Sinatra::Base
   get '/result' do
     @result = AppServices.new(PATH_TO_QUIZ, Main.cache, session[:key])
                          .load_result(params[:key])
-    @result ||= 'Нет файла с результатами для данного идентификатора.'
+    return 'Нет файла с результатами для данного идентификатора.' if @result.nil?
     gon.scales = @result.scales.map { |klass, object| [klass.to_sym, object.t_grade] }.to_h
     erb :result
   end

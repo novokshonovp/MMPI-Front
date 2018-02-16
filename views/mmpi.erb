@@ -6,8 +6,8 @@
     </h1>
   </div>
   <div class="row" id="answers">
-      <div class="truth"><button class="button-xlarge" v-on:click="onTruth">Верно</button></div>
-      <div class="false"><button class="button-xlarge" v-on:click="onFalse">Неверно</button></div>
+      <div class="truth"><button class="button-xlarge" v-on:click="onTruth" v-on:keyup.left="onTruth">Верно (клавиша 1)</button></div>
+      <div class="false"><button class="button-xlarge" v-on:click="onFalse" v-on:keyup.1="onFalse">Неверно (клавиша 2)</button></div>
 </div>
 </div>
 <script>
@@ -35,6 +35,16 @@
     data: { number: '<%= @data[:number] %>',
             question: '<%= @data[:question] %>',
             finished: false },
+    mounted: function() {
+      window.addEventListener('keyup', function(event){
+        if (event.keyCode == 49){
+          app.onTruth();
+        }
+        if (event.keyCode == 50){
+          app.onFalse();
+        }
+      });
+    },
     methods: {
       onTruth(){
         put_answer(this.number, 'true')
@@ -43,6 +53,6 @@
         put_answer(this.number, 'false')
       }
     }
-  })
+  });
 
 </script>

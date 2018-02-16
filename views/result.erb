@@ -1,13 +1,37 @@
 
-<div class="container" id="root">
+<div class="container row result">
   <div class="row result_charts">
     <div class="left_scales"><canvas id="scales_lfk" class="scales_lfk" width="200" height="400"></canvas></div>
     <div class="right_scales"><canvas id="scales_1_0" class="scales_1_0" width="600" height="400"></canvas></div>
   </div>
 
+  <div class="row scales_table">
+    <div class="scales_row">
+      <% @result.scales.each_key do | klass | %>
+        <div class="scales_col">
+          <%= "#{klass.to_sym.to_s.upcase[-1]}" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="scales_row">
+      <% @result.scales.each_value do | object | %>
+        <div class="scales_col">
+          <%= "#{object.t_grade}" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <hr>
+  <% parity = @result.graph_parity%>
+  <% if parity.size > 0 %>
+    <% parity.each do |profile, data| %>
+      Возможно найдено совпадение по профилю <%= data[:name] %>. <%= data[:desc_short] %>  <%= data[:desc_link] %>
+      <hr>
+    <% end %>
+  <% end %>
       <% @result.scales.each do | klass, object| %>
         <div class="row scale_x_result">
-          <%= "#{klass.to_sym} T = #{object.t_grade}" %>
+          <%= "Шкала #{klass.to_sym.to_s.upcase[-1]} = #{object.t_grade}(T- баллы)" %>
           (<%= object.concise_interpretation %>)
       </div>
       <% end %>
@@ -22,10 +46,10 @@ var scales_lfk = new Chart(ctx, {
         datasets: [{
             fill: false,
             borderColor: 'rgba(75, 192, 192)',
-            lineTention: 0.1,
+            tension: 0,
             label: "# L F K (Т-баллы)",
             data: [gon.scales['Scale_l'], gon.scales['Scale_f'], gon.scales['Scale_k']],
-            borderWidth: 5
+            borderWidth: 3
         }]
     },
     options: {
@@ -50,13 +74,13 @@ var scales_lfk = new Chart(ctx, {
         datasets: [{
             fill: false,
             borderColor: 'rgba(0,255,0,0.3)',
-            lineTention: 0.1,
+            tension: 0,
             label: "# 1 2 3 4 5 6 7 8 9 0 (Т-баллы)",
             data: [gon.scales['Scale_1'],gon.scales['Scale_2'],gon.scales['Scale_3'],
                    gon.scales['Scale_4'],gon.scales['Scale_5'],gon.scales['Scale_6'],
                    gon.scales['Scale_7'],gon.scales['Scale_8'],gon.scales['Scale_9'],
                    gon.scales['Scale_0']],
-            borderWidth: 5
+            borderWidth: 3
         }]
     },
     options: {
