@@ -17,6 +17,7 @@ class Main < Sinatra::Base
 
   configure do
     enable :sessions
+    set :bind, '0.0.0.0'
   end
 
   before do
@@ -34,11 +35,13 @@ class Main < Sinatra::Base
 
   get '/mmpi' do
     session[:sex] = params[:sex].to_sym if params[:sex]
-    begin
+    redirect '/' if session[:key].nil?
+    #byebug
+    #begin
       service = AppServices.new(PATH_TO_QUIZ[session[:sex]], Main.cache, session[:key], session[:sex])
-    rescue
-      return 'Отсуствует библиотека утверждений по данному запросу.'
-    end
+    #rescue
+    #  return 'Отсуствует библиотека утверждений по данному запросу.'
+    #end
     service.put_answer(params) if request.xhr?
     @data = service.get_question
     if request.xhr?
@@ -58,7 +61,7 @@ class Main < Sinatra::Base
   end
 
   get '/result' do
-    @result = AppServices.new(PATH_TO_QUIZ, Main.cache, session[:key])
+    @result = AppServices.new
                          .load_result(params[:key])
     return 'Нет файла с результатами для данного идентификатора.' if @result.nil?
     gon.scales = @result.scales.map { |klass, object| [klass.to_sym, object.t_grade] }.to_h

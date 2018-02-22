@@ -8,6 +8,7 @@
   <div class="row" id="answers">
       <div class="truth"><button class="button-xlarge" v-on:click="onTruth" v-on:keyup.left="onTruth">Верно (клавиша 1)</button></div>
       <div class="false"><button class="button-xlarge" v-on:click="onFalse" v-on:keyup.1="onFalse">Неверно (клавиша 2)</button></div>
+      <div class="do_not_know"><button class="button-xlarge" v-on:click="on_DNK">Не знаю</button></div>
 </div>
 </div>
 <script>
@@ -51,6 +52,9 @@
       },
       onFalse(){
         put_answer(this.number, 'false')
+      },
+      on_DNK(){
+        put_answer(this.number, 'dnk')
       }
     }
   });
