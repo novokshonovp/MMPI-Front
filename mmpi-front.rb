@@ -37,11 +37,11 @@ class Main < Sinatra::Base
     session[:sex] = params[:sex].to_sym if params[:sex]
     redirect '/' if session[:key].nil?
     #byebug
-    #begin
+    begin
       service = AppServices.new(PATH_TO_QUIZ[session[:sex]], Main.cache, session[:key], session[:sex])
-    #rescue
-    #  return 'Отсуствует библиотека утверждений по данному запросу.'
-    #end
+    rescue
+      return 'Отсуствует библиотека утверждений по данному запросу.'
+    end
     service.put_answer(params) if request.xhr?
     @data = service.get_question
     if request.xhr?

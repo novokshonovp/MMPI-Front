@@ -1,18 +1,22 @@
 
 <div class="container" id="root">
+  <div class="row processing" v-show="loading" >
+    <h3> <i class="fas fa-sync fa-spin"></i> Обработка ответа... </h3>
+  </div>
   <div class="row question">
     <h1>
       <p id="question_text">{{question}}</p>
     </h1>
   </div>
   <div class="row" id="answers">
-      <div class="truth"><button class="button-xlarge" v-on:click="onTruth" v-on:keyup.left="onTruth">Верно (клавиша 1)</button></div>
-      <div class="false"><button class="button-xlarge" v-on:click="onFalse" v-on:keyup.1="onFalse">Неверно (клавиша 2)</button></div>
+      <div class="truth"><button class="button-xlarge" v-on:click="onTruth" v-on:keyup.left="onTruth">Верно<br>(клавиша 1)</button></div>
+      <div class="false"><button class="button-xlarge" v-on:click="onFalse" v-on:keyup.1="onFalse">Неверно<br>(клавиша 2)</button></div>
       <div class="do_not_know"><button class="button-xlarge" v-on:click="on_DNK">Не знаю</button></div>
 </div>
 </div>
 <script>
   function put_answer(question, answer) {
+    app.loading = true;
     axios.get('/mmpi?question=' + question + '&answer='+answer)
        .then(function (response) {
          app.number = response.data.number;
@@ -21,6 +25,7 @@
            {
              window.location.replace('/finished');
            }
+        app.loading = false;
          console.log(response);
        })
        .catch(function (error) {
@@ -35,7 +40,8 @@
     el: '#root',
     data: { number: '<%= @data[:number] %>',
             question: '<%= @data[:question] %>',
-            finished: false },
+            finished: false,
+            loading: false},
     mounted: function() {
       window.addEventListener('keyup', function(event){
         if (event.keyCode == 49){

@@ -12,6 +12,7 @@
     margin:10px auto 10px;
     width: 1000px;
   }
+  .processing { color: green; text-align: center;}
   .question {
     padding-top: 10%;
     line-height: 3em;
