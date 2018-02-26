@@ -11,7 +11,7 @@ end
 class String
   def to_b
     return true if self == 'true'
-    return true if self == 'false'
+    return false if self == 'false'
     self.dup
   end
 end

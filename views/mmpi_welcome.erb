@@ -1,28 +1,41 @@
 
 <div class="container" id="root">
-  <div class="row">
-    описание и правила тестирования
-    вам дана серия утверждений (всего 566)
-    для ответов используйте нажатие на клавиши клавитуры 1- верное утверждние, 2- неверное утверждение.
-
-  </div>
-  <div class="start_form">
-    <p>Стандартизированный многофакторный метод исследования личности (СМИЛ)</p>
-    <form action="/mmpi" method="get">
-      <div class="sex_fields">
-        <input type="radio" class="radio" name="sex" value="male" checked="checked"/>
-        <label for="male">Мужчина</label>
-        <input type="radio" class="radio" name="sex" value="female" />
-        <label for="female">Женщина</label><br>
-        <input type="radio" class="radio" name="sex" value="boy" disabled="disabled"/>
-        <label for="boy">Мальчик (13-15 лет)</label>
-        <input type="radio" class="radio" name="sex" value="girl" disabled="disabled"/>
-        <label for="girl">Девочка (13-15 лет)</label>
+  <div class="row" id='root'>
+    <div class="mmpi">
+      <h2>Стандартизированный многофакторный метод исследования личности (СМИЛ)</h2>
+        <%= erb :'mmpi/instruction', :layout => false %>
+        <%= erb :'mmpi/additional_info', :layout => false %>
+        <div class="start_form">
+        <form action="/mmpi" method="get">
+          <div class="sex_fields">
+            <input type="radio" class="radio" name="sex" value="male" checked="checked"/>
+            <label for="male">Мужчина</label>
+            <input type="radio" class="radio" name="sex" value="female" />
+            <label for="female">Женщина</label><br>
+            <input type="radio" class="radio" name="sex" value="boy" disabled="disabled"/>
+            <label for="boy">Мальчик (13-15 лет)</label>
+            <input type="radio" class="radio" name="sex" value="girl" disabled="disabled"/>
+            <label for="girl">Девочка (13-15 лет)</label>
+          </div>
+          <div class="sex_submit">
+            <input type="submit" value="Начать тест">
+          </div>
+        </form>
       </div>
-      <div class="sex_submit">
-        <input type="submit" value="Начать тест">
-      </div>
-    </form>
+    </div>
   </div>
-
 </div>
+<script>
+app = new Vue ({
+  el :'#root',
+  data: {
+    show_instr: false,
+    instr_text: { false: 'Читать подробную инструкцию>>>', true: '<<<Скрыть инструкцию' },
+    show_info: false,
+    info_text: { false: 'Далее>>>', true: '<<<Скрыть' }
+  },
+  methods: {
+
+  }
+});
+</script>

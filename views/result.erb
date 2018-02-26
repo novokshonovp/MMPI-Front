@@ -29,6 +29,7 @@
       <hr>
     <% end %>
   <% end %>
+      Шкала ? = <%= @result.scales[Scale_q].co %>
       <% @result.scales.each do | klass, object| %>
         <div class="row scale_x_result">
           <%= "Шкала #{klass.to_sym.to_s.upcase[-1]} = #{object.t_grade}(T- баллы)" %>

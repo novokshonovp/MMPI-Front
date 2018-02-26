@@ -1,0 +1,17 @@
+
+<div class="article">
+    Дополнительная информация о тесте.
+  <div class="article" v-if="show_info">
+    По вопросам работы теста и интерпретации результатов обращаться Екатерина Новокшонова <a href="mailto:knovokshonova@gmail.com">knovokshonova@gmail.com</a> <br>
+    <div class="article">
+      Данные тест — программное обеспечение с открытым исходным кодом. Исходный код доступен для просмотра, изучения, изменения и дополнения
+      <a href="https://github.com/novokshonovp/MMPI">https://github.com/novokshonovp/MMPI</a>,
+      что позволяет убедиться в отсутствии неприемлемого для пользователя функционала.
+    </div>
+    <div class="article">
+      Тест создан на основе стандартизированного многофакторного метода исследования личности,
+      "Практическое руководство к традиционному и компьютерным вариантам теста" , Л.Н. Собчик, ООО "Компания БОРГЕС", 2009, ISBN-978-5-914-82-006-7
+    </div>
+  </div>
+  <a style="cursor:pointer; color: blue;" v-on:click=" show_info = !show_info"> <span > {{info_text[show_info]}}</span> </a>
+</div>

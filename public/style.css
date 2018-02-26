@@ -1,4 +1,6 @@
 <style>
+
+
   .container {
     width: 100%;
     height: 100%;
@@ -12,6 +14,10 @@
     margin:10px auto 10px;
     width: 1000px;
   }
+  .article {
+    text-indent: 20px;
+  }
+
   .processing { color: green; text-align: center;}
   .question {
     padding-top: 10%;
@@ -73,13 +79,16 @@
      display: block;
      float: none;
    }
-   .start_form {
-     border-radius: 5px;
+   .mmpi {
      background-color: #F0F7D4;
+   }
+   .start_form {
+     width: 90%;
+     border-radius: 5px;
      padding: 20px;
      margin:10px auto 10px;
-     width: 400px;
-     border: solid 5 px;
+     border: solid lightblue;
+     border-width: 2px;
    }
    .start_form input[type="submit"] { width: 100%; float:none; background-color: #0D4359; color: white; cursor: pointer; }
    .sex_fields input[type="radio"] { width: 15px; }

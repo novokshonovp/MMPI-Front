@@ -10,7 +10,7 @@ include ERB::Util
 
 class Main < Sinatra::Base
   register Gon::Sinatra
-  PATH_TO_QUIZ = {male: './data/q_mmpi_male_ru_3.csv',
+  PATH_TO_QUIZ = {male: './data/q_mmpi_male_ru.csv',
                   female: './data/q_mmpi_female_ru.csv',
                   boy: './data/q_mmpi_boy_ru.csv',
                   girl: './data/q_mmpi_girl_ru.csv'}.freeze
