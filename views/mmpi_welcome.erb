@@ -3,8 +3,8 @@
   <div class="row" id='root'>
     <div class="mmpi">
       <h2>Стандартизированный многофакторный метод исследования личности (СМИЛ)</h2>
-        <%= erb :'mmpi/instruction', :layout => false %>
-        <%= erb :'mmpi/additional_info', :layout => false %>
+        <%= erb :'mmpi/instruction' %>
+        <%= erb :'mmpi/additional_info' %>
         <div class="start_form">
         <form action="/mmpi" method="get">
           <div class="sex_fields">

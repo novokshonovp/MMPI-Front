@@ -5,23 +5,8 @@
     <div class="right_scales"><canvas id="scales_1_0" class="scales_1_0" width="600" height="400"></canvas></div>
   </div>
 
-  <div class="row scales_table">
-    <div class="scales_row">
-      <% @result.scales.each_key do | klass | %>
-        <div class="scales_col">
-          <%= "#{klass.to_sym.to_s.upcase[-1]}" %>
-        </div>
-      <% end %>
-    </div>
-    <div class="scales_row">
-      <% @result.scales.each_value do | object | %>
-        <div class="scales_col">
-          <%= "#{object.t_grade}" %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-  <hr>
+  <%= erb :'mmpi/scales_table'%>
+  <%= erb :'mmpi/welsh_index' %>
   <% parity = @result.graph_parity%>
   <% if parity.size > 0 %>
     <% parity.each do |profile, data| %>
@@ -29,12 +14,12 @@
       <hr>
     <% end %>
   <% end %>
-      Шкала ? = <%= @result.scales[Scale_q].co %>
       <% @result.scales.each do | klass, object| %>
-        <div class="row scale_x_result">
-          <%= "Шкала #{klass.to_sym.to_s.upcase[-1]} = #{object.t_grade}(T- баллы)" %>
-          (<%= object.concise_interpretation %>)
-      </div>
+        <% if klass.to_sym.to_s.upcase[-1] != 'Q' %>
+          <div class="row scale_x_result">
+            <%= "Шкала #{klass.to_sym.to_s.upcase[-1]} = #{object.t_grade}(T- баллы)" %>
+          </div>
+        <%end%>
       <% end %>
 
 </div>

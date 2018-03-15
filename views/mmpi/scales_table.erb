@@ -1,0 +1,28 @@
+
+<div class="row scales_table">
+  <div class="scales_row">
+    <div class="scales_col"></div>
+    <% @result.scales.each_key do | klass | %>
+      <div class="scales_col">
+        <%= "#{klass.to_sym.to_s.upcase[-1] == 'Q' ? '?' : klass.to_sym.to_s.upcase[-1] }" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="scales_row">
+    <div class="scales_col">CO</div>
+    <% @result.scales.each_value do | object | %>
+      <div class="scales_col">
+        <%= "#{object.co}" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="scales_row">
+    <div class="scales_col">T</div>
+    <% @result.scales.each_value do | object | %>
+      <div class="scales_col">
+        <%= "#{object.t_grade}" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<hr>
