@@ -7,20 +7,9 @@
 
   <%= erb :'mmpi/scales_table'%>
   <%= erb :'mmpi/welsh_index' %>
-  <% parity = @result.graph_parity%>
-  <% if parity.size > 0 %>
-    <% parity.each do |profile, data| %>
-      Возможно найдено совпадение по профилю <%= data[:name] %>. <%= data[:desc_short] %>  <%= data[:desc_link] %>
-      <hr>
-    <% end %>
-  <% end %>
-      <% @result.scales.each do | klass, object| %>
-        <% if klass.to_sym.to_s.upcase[-1] != 'Q' %>
-          <div class="row scale_x_result">
-            <%= "Шкала #{klass.to_sym.to_s.upcase[-1]} = #{object.t_grade}(T- баллы)" %>
-          </div>
-        <%end%>
-      <% end %>
+  <%= erb :'mmpi/reliability' %>
+  <%= erb :'mmpi/graph_parity' %>
+  <%= erb :'mmpi/interpretation' %>
 
 </div>
 <script>

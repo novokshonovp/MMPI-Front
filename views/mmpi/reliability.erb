@@ -1,0 +1,13 @@
+<div class="reliability">
+  <% unless @result.reliable? %>
+    <% @result.scales.each do |_klass, scale| %>
+      <% if scale.respond_to?('reliable?') && scale.reliable? == false %>
+        <%= scale.concise_interpretation %> <br>
+      <% end %>
+    <% end %>
+    <%= "Индекс Уэлша: #{@result.welsh_index}, надежность полученных данных под сомнением." if @result.welsh_index.abs > 11 %>
+  <% else %>
+    <%= 'Результаты теста достоверны.' %>
+  <% end %>
+</div>
+<hr>

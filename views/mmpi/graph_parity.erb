@@ -1,0 +1,8 @@
+<% return unless @result.reliable? %>
+<% parity = @result.graph_parity%>
+<% if parity.size > 0 %>
+  <% parity.each do |profile, data| %>
+    Возможно найдено совпадение по профилю <%= data[:name] %>. <%= data[:desc_short] %>  <%= data[:desc_link] %>
+    <hr>
+  <% end %>
+<% end %>
