@@ -1,8 +1,9 @@
 <% return unless @result.reliable? %>
+<div class="row scale_x_result">
+  <%= @result.scales[Scale_1].concise_interpretation %>
 <% @result.scales.each do | klass, object| %>
   <% if klass.to_sym.to_s.upcase[-1] != 'Q' %>
-    <div class="row scale_x_result">
-      <%= "Шкала #{klass.to_sym.to_s.upcase[-1]} = #{object.t_grade}(T- баллы)" %>
-    </div>
+
   <%end%>
 <% end %>
+</div>
