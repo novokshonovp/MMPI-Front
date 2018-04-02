@@ -4,7 +4,9 @@ require 'byebug'
 require 'sinatra/reloader'
 require_relative './lib/appservices'
 require_relative './lib/cache'
+require_relative './lib/consts'
 require 'gon-sinatra'
+
 
 include ERB::Util
 
@@ -34,6 +36,7 @@ class Main < Sinatra::Base
   end
 
   get '/mmpi' do
+    byebug
     session[:sex] = params[:sex].to_sym if params[:sex]
     redirect '/' if session[:key].nil?
     #byebug

@@ -1,6 +1,6 @@
 <% return unless @result.reliable? %>
 <div class="row scale_x_result">
-  <%= @result.scales[Scale_1].concise_interpretation %>
+  <%results = @result.scales[Scale_1].concise_interpretation %>
 <% @result.scales.each do | klass, object| %>
   <% if klass.to_sym.to_s.upcase[-1] != 'Q' %>
 
