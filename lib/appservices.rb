@@ -20,7 +20,7 @@ class AppServices
   RESULTS_DIR = './results'.freeze
   attr_reader :quiz
 
-  def initialize(path_to_quiz = nil, cache = nil, key = nil, gender = nil)
+  def initialize(path_to_quiz = nil, cache = nil, key = nil, gender = nil, additional_data = nil)
     return if key.nil?
     @path_to_quiz = path_to_quiz
     @key = key
@@ -28,7 +28,7 @@ class AppServices
     if @cache.exist?(key)
       @quiz = @cache.get(@key)
     else
-      @quiz = Test.new(gender, @path_to_quiz)
+      @quiz = Test.new(gender, @path_to_quiz, additional_data)
       @cache.set(@key, @quiz)
     end
   end
