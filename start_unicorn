@@ -1,0 +1,2 @@
+#!/bin/bash
+unicorn -E production -c unicorn.rb -D

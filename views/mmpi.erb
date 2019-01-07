@@ -14,7 +14,7 @@
       <div class="do_not_know"><button class="button-xlarge" v-on:click="on_DNK">Не знаю</button></div>
     </div>
 </div>
-<script>
+<script type="application/javascript">
   function put_answer(question, answer) {
     app.loading = true;
     axios.get('/mmpi?question=' + question + '&answer='+answer)
@@ -26,7 +26,6 @@
              window.location.replace('/finished');
            }
         app.loading = false;
-         console.log(response);
        })
        .catch(function (error) {
          console.log(error.response.data);
@@ -34,7 +33,7 @@
   }
 
 </script>
-<script>
+<script type="application/javascript">
   axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   var app= new Vue ({
     el: '#root',

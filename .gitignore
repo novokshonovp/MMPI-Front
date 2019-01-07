@@ -4,3 +4,8 @@ Gemfile.lock
 /results/
 *.gem
 .idea
+log
+tmp
+
+secret.key
+
