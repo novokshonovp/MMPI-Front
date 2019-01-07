@@ -6,6 +6,14 @@
   </div>
 
   <%= erb :'mmpi/scales_table'%>
+  <% unless @result.test.additional_data.nil? %>
+  <div> Данные обследуемого:
+        <%= @result.test.additional_data[:firstname] %>,
+        <%= @result.test.age%>,
+        <%= CONSTS::GRADES[@result.test.additional_data[:grade]] %> <br>
+        Цель тестирования:
+  <hr></div>
+  <% end %>
   <%= erb :'mmpi/welsh_index' %>
   <%= erb :'mmpi/reliability' %>
   <%= erb :'mmpi/graph_parity' %>
