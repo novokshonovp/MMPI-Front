@@ -8,18 +8,9 @@ def new_test_key
   "#{Time.now.strftime('%Y_%m_%d_%H_%M')}_#{SecureRandom.urlsafe_base64}"
 end
 
-class String
-  def to_b
-    return true if self == 'true'
-    return false if self == 'false'
-    self.dup
-  end
-end
-
 class AppServices
   RESULTS_DIR = './results'.freeze
   attr_reader :quiz
-
   def initialize(path_to_quiz = nil, cache = nil, key = nil, gender = nil, additional_data = nil)
     return if key.nil?
     @path_to_quiz = path_to_quiz
@@ -43,7 +34,7 @@ class AppServices
 
   def put_answer(params)
     raise 'Not existed quiz!' if @quiz.nil?
-    @quiz.put_answer(params[:question] => params[:answer].to_b)
+    @quiz.put_answer(params[:question] => to_boolean(params[:answer]))
     @cache.set(@key, @quiz)
     self
   end
@@ -57,7 +48,7 @@ class AppServices
     return if key.nil?
     path = path_to_result(key)
     @test = YAML.load_file(path) if File.exist?(path)
-    Result.new(@test.answers, @test.gender) unless @test.nil?
+    Result.new(@test) unless @test.nil?
   end
 
   def finished?
@@ -68,5 +59,11 @@ class AppServices
 
   def path_to_result(key)
     "#{RESULTS_DIR}/#{key}.yaml"
+  end
+
+  def to_boolean(value)
+    return true if value == 'true'
+    return false if value == 'false'
+    value.dup
   end
 end
