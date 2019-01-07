@@ -2,5 +2,5 @@
 Gemfile.lock
 /data/
 /results/
-mmpi-*
+*.gem
 .idea
